@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const indexRouter = require('./router/index');
+const aptRouter = require('./router/apt');
 
 const app = express();
 const port = 5000;
@@ -15,6 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // setup the routes
-app.use('/', indexRouter);
+app.use('/apt', aptRouter);
 
 app.listen(port, () => console.log(`[SERVER] listening on port ${port}`));
