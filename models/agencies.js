@@ -9,7 +9,10 @@ const getAgencyByLabel = (label) => {
         if (err) reject(err);
         resolve(docs);
       })
+  }).then(docs => {
+    return docs;
   })
+
 }
 
 const createAgency = (data) => {
@@ -35,8 +38,23 @@ const editAgency = (id, data) => {
   })
 }
 
+const getAgencyTimeslot = (label, zone) => {
+  return new Promise((resolve, reject) => {
+    db.agences.findOne(
+      {
+        'libelle': label,
+        'planning': { zone: zone }
+      },
+      (err, docs) => {
+        if (err) reject(err);
+        resolve(docs);
+      })
+  })
+}
+
 module.exports = {
   getAgencyByLabel,
   createAgency,
-  editAgency
+  editAgency,
+  getAgencyTimeslot
 }
