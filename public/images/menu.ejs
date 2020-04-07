@@ -1,0 +1,133 @@
+ 		<script type="text/javascript">
+            $(document).ready(function () {
+
+                $(function () {
+                   $(".item_flag").on("click", function(){
+                       
+					   	var item = {value : this.id}
+                       $.ajax({
+                           url: "/update_lang",
+                           type: "POST",
+                           data : item,
+                           success: function (data) {
+                               window.location.reload();
+                           }
+                           })
+
+
+
+				   })
+                })
+            })
+
+		</script>
+        <div class="header"> 
+        <div class="entete"> 
+           <div class="logo">
+			   <%if(logobo){%>
+				<a id="img" href="/"><img src="<%=logobo%>" style="max-height: 54px; max-width: 154px"></a>
+				<%}%>
+			
+			<%if (logo === "Deliv") {%>
+               <a id="img" href="/"><img src="public/images/Logo_deliv.png" style="max-height: 54px; max-width: 154px"></a></div>
+			<%} else if (logo === "Help") {%>
+			<a id="img" href="/"><img src="public/images/Logo_help.png" style="max-height: 54px; max-width: 154px"></a></div>
+			<%} else {%>
+			<a id="img" href="/"><img src="public/images/Logo_workforce.png" style="max-height: 54px; max-width: 154px"></a></div>
+			<%}%>
+        <div class="title"><%= title %></div>
+		<div class="flag" <%if (!title) {%> style="margin-top:40px;" <%}%>>
+			<img class="item_flag" id="FR" src="public/images/flag/fr.png"  title="FR">
+			<img class="item_flag" id="EN" src="public/images/flag/EN.png"  title="EN">
+			<img class="item_flag" id="ES" src="public/images/flag/ES.png"  title="ES">
+			<img class="item_flag" id="DE" src="public/images/flag/DE.png"  title="DE">
+			<img class="item_flag" id="IT" src="public/images/flag/it.png"  title="IT">
+			<img class="item_flag" id="NL" src="public/images/flag/NL.png" title="NL">
+			<img class="item_flag" id="PT" src="public/images/flag/PT.png" title="PT">
+
+		</div>
+        </div>
+	<div class="wrap">
+	<nav>
+		<ul class="menu">
+			<li><a href="#"><span class="iconic magnifying-glass"></span>  <%=menu.suivi%></a>
+				<ul>
+					<li><a href="/livraison"><%=menu.suivi_planif%></a></li>
+					<li><a href="/livraison_planif"><%=menu.suivi_toplanif%></a></li>
+					 <li><a href="/timeline"><%=menu.timeline%></a></li> 
+				</ul>
+			</li>
+
+			<li><a href="#"><span class="iconic reports"></span> <%=menu.report%></a>
+				<ul>
+					<li><a href="/encaissement"><%=menu.enc%></a></li>
+					<li><a href="/rapport_qs"><%=menu.qs%></a></li>
+					<li><a href="/ponctualite"><%=menu.ponctualite%></a></li>
+					<li><a href="/nb_liv"><%=menu.nb_liv%></a></li>
+					<!--<li><a href="/nb_km"><%=menu.nb_km%></a></li>-->
+					<li><a href="/nb_statut_fin_liv"><%=menu.nb_statut_fin_liv%></a></li>
+					<li><a href="/nb_motif_no_eff"><%=menu.nb_motif_no_eff%></a></li>
+					<%if(report_nbrdv === true){%>
+					<li><a href="/nb_appt"><%=menu.nb_appt%></a></li>
+					<%}%>
+					<!--<li><a href="/nb_sms"><%=menu.nb_sms%></a></li>-->
+				</ul>
+			</li>
+
+			<%if (optim === true){%>
+			<li><a href="/optimize"><span class="iconic optimize"></span> <%=menu.optimize%></a>
+			<%}%>
+
+            <% if (planning === true) { %>
+			<li><a href="/planning"><span class="iconic planning"></span> <%=menu.planning%></a>
+            <%}%>
+			<li><a href="#"><span class="iconic map-pin"></span><%=menu.geo%></a>
+				<ul>
+					<li><a href="/geoloc"><%=menu.geoloc%></a></li>
+                    <% if (parcours === true) { %>
+					<li><a href="/geoloc_hist"><%=menu.parcours%></a></li>
+                    <%}%>
+				</ul>
+			</li>
+				
+			</li>
+			<% if (cpte_ctc === true) { %> <li><a href="#"><span class="iconic briefcase"></span>  <%=menu.cpte_ctact%></a>
+				<ul>
+					<li><a href="/compte"><%=menu.cpte%></a></li>
+					<li><a href="/contact"><%=menu.ctact%></a></li>
+				</ul>
+			</li><%}%>
+
+			<li><a href="#"><span class="iconic plus-alt"></span>  <%=menu.conf%></a>
+				<ul>
+					<li><a href="/agence"><%=menu.agence%></a></li>
+					<li><a href="/transporteur"><%=menu.trans%></a></li>
+					<li><a href="/livreur"><%=menu.livreur%></a></li>
+					<li><a href="/vehicule"><%=menu.vehicule%></a></li>
+					<%if (optim === true){%>
+					<li><a href="/categorie"><%=menu.category%></a></li>
+					<li><a href="/skill"><%=menu.skill%></a></li>					
+					<%}%>
+					
+					<li><a href="/type"><%=menu.type%></a></li>
+					<!--<li><a href="/type_vehicule"><%=menu.type_vehicule%></a></li>-->
+					<li><a href="/donneurordre"><%=menu.donneur%></a></li>
+					<%if(perso_bl === true) {%>
+					<li><a href="/bl_perso"><%=menu.bl_perso%></a></li>
+					<%}%>
+					<li><a href="/setup"><%=menu.setting%></a></li>
+					<li><a href="/setup_label"><%=menu.setting_label%></a></li>
+					<li><a href="/setup_column"><%=menu.settingcolumn%></a></li>
+					<li><a href="/setup_column_extract"><%=menu.settingcolumnextract%></a></li>
+					
+					<li><a href="/about"><%=menu.about%></a></li>
+
+				</ul>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+	</nav>
+	</div>
+        </div>
+
+

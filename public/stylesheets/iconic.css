@@ -1,0 +1,84 @@
+@font-face {
+  font-family: 'IconicStroke';
+    src: url("fonts/iconic/iconic_stroke.eot");
+    src: local('IconicStroke'),
+       url("fonts/iconic/iconic_stroke.svg#iconic") format('svg'),
+	   url("fonts/iconic/iconic_stroke.otf") format('opentype');
+}
+
+.iconic {
+	color:inherit;
+	font-family: "IconicStroke";
+	font-size: 38px;
+	line-height: 20px;
+	vertical-align: middle;
+	height :33px;
+}
+
+a.iconic:hover {
+	color:inherit;
+}
+
+
+.iconic.magnifying-glass:before {
+	background-image: url('/public/images/menu/Loop.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+
+
+.iconic.map-pin:before {
+	background-image: url('/public/images/menu/Map.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+
+.iconic.plus-alt:before {
+	background-image: url('/public/images/menu/Plus_Alt.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+
+.iconic.briefcase:before {
+	background-image: url('/public/images/menu/briefcase.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+
+.iconic.planning:before {
+	background-image: url('/public/images/menu/calendar.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+
+.iconic.optimize:before {
+	background-image: url('/public/images/menu/optimize.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}
+.iconic.reports:before {
+	background-image: url('/public/images/menu/reports.png');
+	background-size: 28px 25px;
+	display: inline-block;
+	width: 28px;
+	height: 25px;
+	content:"";
+}

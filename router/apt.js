@@ -4,6 +4,7 @@ const router = express.Router();
 const deliveries = require('../models/deliveries');
 const agencies = require('../models/agencies');
 const apts = require('../models/apts');
+const configurations = require('../models/confs');
 
 router.get('/timeslots', async (req, res, next) => {
   try {
@@ -76,7 +77,6 @@ router.put('/update', async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 })
-
 
 
 module.exports = router;

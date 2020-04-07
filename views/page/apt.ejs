@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> </title>
+  <style>
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      flex: 1;
+    }
+
+    .h1 {
+      flex: 1;
+    }
+
+    .timeslots-table {
+      /* background-color: blue; */
+      border: 1px solid darkgrey;
+      border-bottom: 0px;
+      margin-bottom: 20px;
+      min-width: 300px;
+    }
+
+    .date {
+      padding: 5px 10px 5px 10px;
+      background-color: darksalmon;
+      border-bottom: 1px solid darkgrey;
+    }
+
+    .slot {
+      padding: 5px 10px 5px 10px;
+      border-bottom: 1px solid darkgrey;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <a href="/"><img src="public/images/logo.png" alt="logo"></a>
+      </div>
+      <div class="h1">
+        <h1>Order N° 9402716-8 from Carrefour</h1>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <h2>Pick a delivery slot</h2>
+
+      <p>To pick a timeslot, click one the corresponding line. If no slot suits to you, please contact us: 0140414243
+      </p>
+
+      <div class="timeslots-table">
+        <div class="date">
+          7th Apr 2020
+        </div>
+
+        <div class="slot">
+          <input type="radio" id="slot1" name="timeslots" value="07:00 - 12:00">
+          <label for="slot1">07:00 - 12:00</label>
+        </div>
+
+        <div class="slot">
+          <input type="radio" id="slot2" name="timeslots" value="13:00 - 15:00">
+          <label for="slot2">13:00 - 15:00</label>
+        </div>
+
+        <div class="slot">
+          <input type="radio" id="slot3" name="timeslots" value="17:00 - 19:00">
+          <label for="slot3">17:00 - 19:00</label>
+        </div>
+      </div>
+      <button>Continue</button>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="public/javascripts/apt.js"></script>
+
+  </div>
+
+</body>
+
+</html>
