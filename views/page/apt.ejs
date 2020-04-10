@@ -39,6 +39,12 @@
       padding: 5px 10px 5px 10px;
       border-bottom: 1px solid darkgrey;
     }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
   </style>
 </head>
 
@@ -49,45 +55,49 @@
         <a href="/"><img src="public/images/logo.png" alt="logo"></a>
       </div>
       <div class="h1">
-        <h1>Order N° 9402716-8 from Carrefour</h1>
+        <h1>Order N° <%= cmdId %> from <%= customerName %> </h1>
       </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center">
+    <div class="content" id="pickerSection">
       <h2>Pick a delivery slot</h2>
 
       <p>To pick a timeslot, click one the corresponding line. If no slot suits to you, please contact us: 0140414243
       </p>
+      <% if(dates.length !== 0) { %>
+      <form class="timeslots-table" id="timeslots">
 
-      <div class="timeslots-table">
-        <div class="date">
-          7th Apr 2020
-        </div>
+        <% 
+              var index = 1
+              for(var i=0; i<dates.length; i++) { 
+              
+            %>
 
-        <div class="slot">
-          <input type="radio" id="slot1" name="timeslots" value="07:00 - 12:00">
-          <label for="slot1">07:00 - 12:00</label>
+        <div class="option<%= index %>">
+          <div class="date" data-id="<%=index%>"><%= dates[i] %> </div>
+          <% for(var k=0; k<slots.length; k++) { %>
+          <div class="slot">
+            <input type="radio" name="timeslots" data-id="<%=index%>"
+              value="<%= slots[k].startTime%> - <%= slots[k].endTime %>">
+            <label><%= slots[k].startTime%> - <%= slots[k].endTime %></label>
+          </div>
+          <% 
+                } 
+              %>
         </div>
+        <% index++ } %>
+      </form>
 
-        <div class="slot">
-          <input type="radio" id="slot2" name="timeslots" value="13:00 - 15:00">
-          <label for="slot2">13:00 - 15:00</label>
-        </div>
-
-        <div class="slot">
-          <input type="radio" id="slot3" name="timeslots" value="17:00 - 19:00">
-          <label for="slot3">17:00 - 19:00</label>
-        </div>
-      </div>
-      <button>Continue</button>
+      <button id="continue">Continue</button>
+      <% } %>
     </div>
-
+    <div class="content" id="confirmation"></div>
+    <div class="content" id="lastStep"></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="public/javascripts/apt.js"></script>
 
-  </div>
 
 </body>
 

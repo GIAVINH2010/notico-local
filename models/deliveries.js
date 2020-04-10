@@ -12,14 +12,16 @@ const getDelivery = (cmdId) => {
         lang: 1,
         phone: 1,
         email: 1,
-        address: 1,
+        street: 1,
         postCode: 1,
         city: 1,
         country: 1,
         delivDate: 1,
         delivTime: 1,
         delivEndDate: 1,
-        delivEndTime: 1
+        delivEndTime: 1,
+        delivWishedDate: 1,
+        delivWishedEndDate: 1
       },
       (err, docs) => {
         if (err) reject(err);

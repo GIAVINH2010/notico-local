@@ -18,7 +18,7 @@ const createApt = data => {
         }
       }
     )
-  }).then(docs)
+  }).then(docs => docs);
 }
 
 const deleteApt = _id => {

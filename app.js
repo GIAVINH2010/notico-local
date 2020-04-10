@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // setup the routes
-app.use('/api/v1', aptAPI);
+app.use('/api/apt', aptAPI);
 app.use('/apt', aptRouter);
 
 app.listen(port, () => console.log(`[SERVER] listening on port ${port}`));

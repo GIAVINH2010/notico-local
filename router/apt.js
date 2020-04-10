@@ -1,26 +1,40 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 const deliveries = require('../models/deliveries');
 const agencies = require('../models/agencies');
 const apts = require('../models/apts');
 const configurations = require('../models/confs');
 
-router.get('/timeslots', async (req, res, next) => {
+router.get('/delivery', async (req, res, next) => {
   try {
     const { cmdId } = req.query;
     const delivery = await deliveries.getDelivery(cmdId);
     console.log("delivery", delivery)
-    const agency = await agencies.getAgencyByLabel(delivery.agenceLibelle);
-    console.log("agency", agency)
+    // const agency = await agencies.getAgencyByLabel(delivery.agenceLibelle);
+    // // console.log("agency", agency)
 
-    let slots = []
-    agency.planning.map(plan => {
-      if (plan.zone === parseInt(delivery.postCode))
-        slots = plan.slots
-    })
-    console.log("slots", slots)
-    return res.status(200).json({ slots })
+    // let slots = []
+    // agency.planning.map(plan => {
+    //   if (plan.zone === parseInt(delivery.postCode))
+    //     slots = plan.slots
+    // })
+    // // console.log("slots", slots)    
+
+    // const dates = [];
+    // if (delivery.delivWishedDate && delivery.delivWishedDate.length !== 0 && delivery.delivWishedEndDate && delivery.delivWishedEndDate.length !== 0 && moment(delivery.delivWishedEndDate).isSameOrAfter(moment())) {
+    //   let dt = moment(delivery.delivWishedDate).isSameOrAfter(moment()) ? moment(delivery.delivWishedDate) : moment();
+
+    //   while (dt.isSameOrBefore(delivery.delivWishedEndDate) && dates.length < 3) {
+    //     dates.push(dt.format("MMMM Do YYYY"));
+    //     dt.add(1, 'd');
+    //   }
+
+    // }
+    // console.log("dates", dates);
+
+    return res.status(200).json(delivery);
   } catch (error) {
     console.log("error =>", error)
     return res.status(500).json({ message: "Internal Server Error" })
