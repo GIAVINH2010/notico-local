@@ -34,7 +34,7 @@ const deleteApt = _id => {
 
 const updateApt = (_id, data) => {
   return new Promise((resolve, reject) => {
-    db.apts.updateOne(
+    db.apts.update(
       { _id: mongojs.ObjectId(_id) },
       {
         $set: data

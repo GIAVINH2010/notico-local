@@ -1,102 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('../commun/header.ejs') -%>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> </title>
-  <style>
-    .header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    .logo {
-      flex: 1;
-    }
 
-    .h1 {
-      flex: 1;
-    }
+<style>
+  .timeslots-table {
+    /* background-color: blue; */
+    border: 1px solid darkgrey;
+    border-bottom: 0px;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    min-width: 300px;
+  }
 
-    .timeslots-table {
-      /* background-color: blue; */
-      border: 1px solid darkgrey;
-      border-bottom: 0px;
-      margin-bottom: 20px;
-      min-width: 300px;
-    }
+  .date {
+    padding: 5px 10px 5px 10px; 
+    background-color: darksalmon;
+    border-bottom: 1px solid darkgrey;
+  }
 
-    .date {
-      padding: 5px 10px 5px 10px;
-      background-color: darksalmon;
-      border-bottom: 1px solid darkgrey;
-    }
+  .slot {
+    padding: 5px 10px 5px 10px;
+    border-bottom: 1px solid darkgrey;
+  }
 
-    .slot {
-      padding: 5px 10px 5px 10px;
-      border-bottom: 1px solid darkgrey;
-    }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center
-    }
-  </style>
-</head>
+
+</style>
 
 <body>
-  <div class="container">
-    <div class="header">
+  <div class="header">
+    <div class="entete">
       <div class="logo">
-        <a href="/"><img src="public/images/logo.png" alt="logo"></a>
+        <%if(logobo){%>
+          <a id="img" href="/"><img src="<%=logobo%>" style="max-height: 54px; max-width: 154px"></a>
+        <%}%>
+  
+        <%if (logo === "Deliv") {%>
+          <a id="img" href="/"><img src="public/images/Logo_deliv.png" style="max-height: 54px; max-width: 154px"></a>
+        <%} else if (logo === "Help") {%>
+          <a id="img" href="/"><img src="public/images/Logo_help.png" style="max-height: 54px; max-width: 154px"></a>
+        <%} else {%>
+          <a id="img" href="/"><img src="public/images/Logo_workforce.png" style="max-height: 54px; max-width: 154px"></a>
+        <%}%>
       </div>
-      <div class="h1">
-        <h1>Order N° <%= cmdId %> from <%= customerName %> </h1>
+      <div class="title">Order N° <%= cmdId %> from <%= customerName %></div>
+      <div class="flag" <%if (!title) {%> style="margin-top:40px;" <%}%>>
+        <!-- https://www.flaticon.com/packs/international-flags -->
+        <img class="item_flag" id="FR" src="public/images/flag/FR.png"  title="FR">
+        <img class="item_flag" id="EN" src="public/images/flag/EN.png"  title="EN">
+        <img class="item_flag" id="ES" src="public/images/flag/ES.png"  title="ES">
+        <img class="item_flag" id="DE" src="public/images/flag/DE.png"  title="DE">
+        <img class="item_flag" id="IT" src="public/images/flag/IT.png"  title="IT">
+        <img class="item_flag" id="NL" src="public/images/flag/NL.png" title="NL">
+        <img class="item_flag" id="PT" src="public/images/flag/PT.png" title="PT">
+        <img class="item_flag" id="AG" src="public/images/flag/AG.png" title="AG">
       </div>
     </div>
+  </div>
+    
 
-    <div class="content" id="pickerSection">
-      <h2>Pick a delivery slot</h2>
+  <div class="container">
+    <div class="form-style-1" id="pickerSection">
+      <h1 style="text-align: center">Pick a delivery slot</h1>
+  
+      <p>To pick a timeslot, click one the corresponding line. If no slot suits to you, please contact us: 0140414243</p>
+  
+      <ul>
+        <li>
+          <label for="dates">Date:</label>
+          <select id="dates" class="field-select">
+            <option value="">Please choice a date</option>
+            <% for(var i=0; i<dates.length; i++) { %>
+              <option value="<%= dates[i].value%>"><%= dates[i].label%></option>
+            <% } %>
+          </select>
+        </li>
+        <li>
+          <label>Slots:</label>
+          <% for(var i=0; i<slots.length; i++) { %>
+            <div style="display: flex; flex-direction: row; align-items: center; padding: 5px 10px">
+              <input type="radio" id="slot-<%=i%>" name="slots" value="<%=slots[i].startedTime%> - <%=slots[i].endedTime%>">
+              <label style="margin-left: 10px" for="slot-<%=i%>"><%=slots[i].startedTime%> - <%=slots[i].endedTime%></label><br>
+            </div>
+            
+          <% } %>
+        </li>
+      </ul>
 
-      <p>To pick a timeslot, click one the corresponding line. If no slot suits to you, please contact us: 0140414243
-      </p>
-      <% if(dates.length !== 0) { %>
-      <form class="timeslots-table" id="timeslots">
-
-        <% 
-              var index = 1
-              for(var i=0; i<dates.length; i++) { 
-              
-            %>
-
-        <div class="option<%= index %>">
-          <div class="date" data-id="<%=index%>"><%= dates[i] %> </div>
-          <% for(var k=0; k<slots.length; k++) { %>
-          <div class="slot">
-            <input type="radio" name="timeslots" data-id="<%=index%>"
-              value="<%= slots[k].startTime%> - <%= slots[k].endTime %>">
-            <label><%= slots[k].startTime%> - <%= slots[k].endTime %></label>
-          </div>
-          <% 
-                } 
-              %>
-        </div>
-        <% index++ } %>
-      </form>
-
-      <button id="continue">Continue</button>
-      <% } %>
+      <div style="text-align: center">
+        <button class="btn" id="continue">Continue</button>
+      </div>
     </div>
-    <div class="content" id="confirmation"></div>
-    <div class="content" id="lastStep"></div>
+    <div class="form-style-1" id="confirmation"></div>
+    <div class="form-style-1" id="lastStep"></div>
+  </div>
+  
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="public/javascripts/apt.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      var apt = (function () {
+        let date = null,
+          time = null,
+          urlBase = window.location.host + '/api',
+          delivery = <%- delivery %>;
+
+        console.log("apt -> urlBase", urlBase);
+        console.log("apt -> delivery", delivery)
+
+        const buildUrl = function (uri) {
+          return urlBase + uri;
+        }
+
+        const getQueryParams = function () {
+          var vars = {}, hash;
+          var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+          for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars[hash[0]] = hash[1];
+          }
+          return vars;
+        }
+
+        $('#pickerSection select#dates').change(function () {
+          const selectedDate = $(this).val();
+          console.log("apt -> selectedDate", selectedDate)
+          date = selectedDate
+        })
+
+        $('#pickerSection input').change(function () {
+          const selectedTime = $(this).val();
+          console.log("apt -> selectedTime", selectedTime)
+          time = selectedTime
+        })
+
+        $('#continue').on('click', async function () {
+          $('#pickerSection').remove();
+
+          const content = '<h1 style="text-align: center">Confirmation</h1>'
+            + "<p style='margin-bottom: 10px'>Your slot is: <b>" + date + " " + time + "</b></p>"
+            + "<p style='margin-bottom: 10px'>Delivery address is: " + delivery.street + "</p>"
+
+            + "<div style='text-align: center'>"
+            + '<button class="btn" id="valider">Continue</button>'
+            + '</div>';
+          $('#confirmation').html(content)
+
+        })
+
+        $(document).on('click', '#valider', function () {
+          // const url = buildUrl('/apt/create');
+          const data = {
+            agenceLibelle: delivery.agenceLibelle,
+            deliveryId: delivery.cmdId,
+            customerName: delivery.name,
+            timeslot: time,
+            date: date,
+            status: "requested"
+          }
+          $.ajax({
+            type: "post",
+            url: '/create_apt',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+          })
+            .done(function (res) {
+              console.log("apt -> res", res);
+              $('#confirmation').remove();
+              const content = "<h2>Your apt request was acknowledged.</h2>"
+                + "<p>You will receive a confirmation:</p>"
+                + "<p>Any questions, feel free to contact us 0140414243</p>";
+
+              $('#lastStep').html(content);
+            })
+            .fail(function (err) {
+              alert(err.responseText)
+            })
+        });
+      })();
+
+
+    });  
+  </script>
+  <!-- <script src="public/javascripts/apt.js"></script> -->
 
 
 </body>

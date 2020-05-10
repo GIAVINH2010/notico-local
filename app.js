@@ -4,6 +4,7 @@ const path = require('path');
 
 const aptAPI = require('./router/apt');
 const aptRouter = require('./router/page/apt');
+const agencyApi = require('./router/agency');
 
 const app = express();
 const port = 5000;
@@ -24,5 +25,6 @@ app.set('view engine', 'ejs');
 // setup the routes
 app.use('/api/apt', aptAPI);
 app.use('/apt', aptRouter);
+app.use('/api/agency', agencyApi);
 
 app.listen(port, () => console.log(`[SERVER] listening on port ${port}`));
